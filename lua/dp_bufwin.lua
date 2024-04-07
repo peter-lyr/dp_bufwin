@@ -1,19 +1,14 @@
 local M = {}
 
-function M.win_equal()
-  vim.cmd 'wincmd ='
-end
-
-function M.win_max_height()
-  vim.cmd 'wincmd _'
-end
+local dp_win = require 'dp_win'
+local dp_buf = require 'dp_buf'
 
 M.defaults = {
   ['<leader>'] = {
     w = {
       name = 'winbuf',
-      e = { M.win_equal, 'win equal', mode = { 'n', 'v', }, },
-      m = { M.win_max_height, 'win max height', mode = { 'n', 'v', }, },
+      e = { dp_win.win_equal, 'win: equal', mode = { 'n', 'v', }, },
+      m = { dp_win.win_max_height, 'win: max height', mode = { 'n', 'v', }, },
     },
   },
 }
