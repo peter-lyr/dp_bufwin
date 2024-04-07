@@ -32,7 +32,12 @@ M.defaults = {
 }
 
 function M.setup(options)
-  require 'which-key'.register(vim.tbl_deep_extend('force', {}, M.defaults, options or {}))
+  local sta, whichkey = pcall(require, 'which-key')
+  if not sta then
+    vim.notify 'no which-key found, setup for dp_winbuf failed!'
+    return
+  end
+  whichkey.register(vim.tbl_deep_extend('force', {}, M.defaults, options or {}))
 end
 
 return M
