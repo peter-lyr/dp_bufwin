@@ -14,6 +14,13 @@ M.defaults = {
       k = { function() dp_win.win_go 'k' end, 'win: go up', mode = { 'n', 'v', }, },
       l = { function() dp_win.win_go 'l' end, 'win: go right', mode = { 'n', 'v', }, },
     },
+    x = {
+      c = { function() dp_win.win_close() end, 'win: close cur', mode = { 'n', 'v', }, },
+      h = { function() dp_win.win_close 'h' end, 'win: close left', mode = { 'n', 'v', }, },
+      j = { function() dp_win.win_close 'j' end, 'win: close down', mode = { 'n', 'v', }, },
+      k = { function() dp_win.win_close 'k' end, 'win: close up', mode = { 'n', 'v', }, },
+      l = { function() dp_win.win_close 'l' end, 'win: close right', mode = { 'n', 'v', }, },
+    },
   },
 }
 

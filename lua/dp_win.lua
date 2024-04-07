@@ -34,4 +34,23 @@ function M.win_go(dir)
   vim.cmd('wincmd ' .. dir)
 end
 
+function M.win_close(dir)
+  local cur_winid = vim.fn.win_getid()
+  if dir then
+    M.win_go(dir)
+  end
+  local cur_winnr = vim.fn.winnr()
+  for winnr = vim.fn.winnr '$', 1, -1 do
+    if cur_winnr ~= winnr then
+      if vim.fn.filereadable(vim.api.nvim_buf_get_name(vim.fn.winbufnr(winnr))) == 1 then
+        vim.cmd 'close'
+        break
+      end
+    end
+  end
+  if dir then
+    vim.fn.win_gotoid(cur_winid)
+  end
+end
+
 return M
