@@ -31,11 +31,18 @@ local dp_buf = require 'dp_buf'
       l = { function() dp_win.win_go 'l' end, 'win: go right', mode = { 'n', 'v', }, },
     },
     x = {
-      c = { function() dp_win.win_close() end, 'win: close cur', mode = { 'n', 'v', }, },
-      h = { function() dp_win.win_close 'h' end, 'win: close left', mode = { 'n', 'v', }, },
-      j = { function() dp_win.win_close 'j' end, 'win: close down', mode = { 'n', 'v', }, },
-      k = { function() dp_win.win_close 'k' end, 'win: close up', mode = { 'n', 'v', }, },
-      l = { function() dp_win.win_close 'l' end, 'win: close right', mode = { 'n', 'v', }, },
+      name = 'winbuf.close',
+      c = { function() dp_win.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
+      h = { function() dp_win.win_close 'h' end, 'win.close: left', mode = { 'n', 'v', }, },
+      j = { function() dp_win.win_close 'j' end, 'win.close: close down', mode = { 'n', 'v', }, },
+      k = { function() dp_win.win_close 'k' end, 'win.close : up', mode = { 'n', 'v', }, },
+      l = { function() dp_win.win_close 'l' end, 'win.close : right', mode = { 'n', 'v', }, },
+      o = {
+        name = 'winbuf.close.other',
+        c = { function() vim.cmd 'wincmd o' end, 'win.close.other: windows in cur tab ', mode = { 'n', 'v', }, },
+        t = { function() vim.cmd 'tabonly' end, 'win.close.other: windows in other tabs ', mode = { 'n', 'v', }, },
+        a = { function() vim.cmd 'tabonly|wincmd o' end, 'win.close.other: all windows ', mode = { 'n', 'v', }, },
+      },
     },
   },
 }
