@@ -15,6 +15,7 @@ M.defaults = {
       l = { function() dp_win.win_go 'l' end, 'win: go right', mode = { 'n', 'v', }, },
     },
     x = {
+      name = 'winbuf.close',
       c = { function() dp_win.win_close() end, 'win: close cur', mode = { 'n', 'v', }, },
       h = { function() dp_win.win_close 'h' end, 'win: close left', mode = { 'n', 'v', }, },
       j = { function() dp_win.win_close 'j' end, 'win: close down', mode = { 'n', 'v', }, },
