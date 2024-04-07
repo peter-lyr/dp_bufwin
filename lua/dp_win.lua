@@ -30,20 +30,8 @@ function M.win_max_height()
   end
 end
 
-function M.win_go_down()
-  vim.cmd 'wincmd j'
-end
-
-function M.win_go_up()
-  vim.cmd 'wincmd k'
-end
-
-function M.win_go_left()
-  vim.cmd 'wincmd h'
-end
-
-function M.win_go_right()
-  vim.cmd 'wincmd l'
+function M.win_go(dir)
+  vim.cmd('wincmd ' .. dir)
 end
 
 return M
