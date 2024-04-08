@@ -95,7 +95,6 @@ function M.close_except_fts()
 end
 
 function M.split_other_proj_buffer()
-  print(string.format("## %s# %d", debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
   vim.cmd 'tabo'
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_buffer) > 1 then
@@ -117,7 +116,6 @@ function M.split_other_proj_buffer()
 end
 
 function M.open_other_proj_buffer()
-  print(string.format("## %s# %d", debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
   vim.cmd 'tabo'
   M.close_except_fts()
   local roots = {}
