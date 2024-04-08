@@ -4,7 +4,7 @@ local sta, B = pcall(require, 'dp_base')
 
 if not sta then return print('Dp_base is required!', debug.getinfo(1)['source']) end
 
-M.donot_change_fts = {
+M.DoNotCloseFileTypes = {
   'NvimTree',
   'aerial',
   'qf',
@@ -80,7 +80,7 @@ function M.close_except_fts()
   for winnr = vim.fn.winnr '$', 1, -1 do
     if cur_winnr ~= winnr then
       local bufnr = vim.fn.winbufnr(winnr)
-      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), M.donot_change_fts) then
+      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), M.DoNotCloseFileTypes) then
         to_close_winnr[#to_close_winnr + 1] = winnr
       end
     end
@@ -105,11 +105,6 @@ function M.split_other_proj_buffer()
         vim.cmd 'wincmd s'
         vim.cmd('b' .. M.proj_buffer[proj])
       end
-    end
-    vim.cmd 'wincmd t'
-    if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
-      vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
-      vim.cmd 'wincmd w'
     end
     vim.cmd 'wincmd ='
   end
