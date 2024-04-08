@@ -34,6 +34,7 @@ function M.win_go(dir)
   vim.cmd('wincmd ' .. dir)
 end
 
+-- [ ] TODO: close 2 or more untitled buffers
 function M.win_close(dir)
   local cur_winid = vim.fn.win_getid()
   if dir then
