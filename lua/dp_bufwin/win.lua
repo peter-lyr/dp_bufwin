@@ -156,6 +156,9 @@ function M.open_other_proj_buffer()
       end
     end
   end)
+  if #vim.tbl_keys(roots) <= 20 then
+    vim.fn.timer_start(20, function() vim.cmd [[call feedkeys("\<esc>")]] end)
+  end
 end
 
 return M
