@@ -1,5 +1,18 @@
 local M = {}
 
+local sta, B = pcall(require, 'dp_base')
+
+if not sta then return print('Dp_base is required!', debug.getinfo(1)['source']) end
+
+M.donot_change_fts = {
+  'NvimTree',
+  'aerial',
+  'qf',
+  'fugitive',
+}
+
+M.proj_buffer = {}
+
 function M.win_equal()
   vim.cmd 'wincmd ='
 end
@@ -52,6 +65,99 @@ function M.win_close(dir)
   if dir then
     vim.fn.win_gotoid(cur_winid)
   end
+end
+
+B.aucmd({ 'BufEnter', }, 'my.bufwin.BufEnter', {
+  callback = function(ev)
+    local root = B.get_proj_root(B.buf_get_name(ev.buf))
+    M.proj_buffer[root] = ev.buf
+  end,
+})
+
+function M.close_except_fts()
+  local to_close_winnr = {}
+  local cur_winnr = vim.fn.winnr()
+  for winnr = vim.fn.winnr '$', 1, -1 do
+    if cur_winnr ~= winnr then
+      local bufnr = vim.fn.winbufnr(winnr)
+      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), M.donot_change_fts) then
+        to_close_winnr[#to_close_winnr + 1] = winnr
+      end
+    end
+  end
+  if not B.file_exists(B.buf_get_name()) then
+    local temp = table.remove(to_close_winnr, 1)
+    vim.fn.win_gotoid(vim.fn.win_getid(temp))
+  end
+  for _, winnr in ipairs(to_close_winnr) do
+    vim.api.nvim_win_close(vim.fn.win_getid(winnr), false)
+  end
+end
+
+function M.split_other_proj_buffer()
+  print(string.format("## %s# %d", debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
+  vim.cmd 'tabo'
+  M.close_except_fts()
+  if #vim.tbl_keys(M.proj_buffer) > 1 then
+    local temp = B.get_proj_root()
+    for _, proj in ipairs(vim.tbl_keys(M.proj_buffer)) do
+      if proj ~= temp and vim.fn.buflisted(M.proj_buffer[proj]) == 1 then
+        vim.cmd 'wincmd ='
+        vim.cmd 'wincmd s'
+        vim.cmd('b' .. M.proj_buffer[proj])
+      end
+    end
+    vim.cmd 'wincmd t'
+    if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+      vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
+      vim.cmd 'wincmd w'
+    end
+    vim.cmd 'wincmd ='
+  end
+end
+
+function M.open_other_proj_buffer()
+  print(string.format("## %s# %d", debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
+  vim.cmd 'tabo'
+  M.close_except_fts()
+  local roots = {}
+  local cur_proj = B.get_proj_root()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local fname = B.buf_get_name(bufnr)
+    if B.is(fname) and B.is_file(fname) then
+      local root = B.get_proj_root(fname)
+      if cur_proj ~= root then
+        roots[root] = {}
+      end
+      root = vim.fn.trim(root)
+      if #root == 0 then
+        B.stack_item_uniq(roots[root], fname)
+      else
+        B.stack_item_uniq(roots[root], string.sub(fname, #root + 2, #fname))
+      end
+    end
+  end
+  B.ui_sel(vim.tbl_keys(roots), 'open which proj file', function(root)
+    if root then
+      if M.proj_buffer[root] and B.is(vim.fn.bufexists(M.proj_buffer[root])) then
+        B.cmd('b%s', M.proj_buffer[root])
+      else
+        local len = #vim.tbl_keys(roots)
+        for i = 1, len do
+          local fname = ''
+          if #root > 0 then
+            fname = B.get_file(root, roots[root][len + 1 - i])
+          else
+            fname = roots[root][len + 1 - i]
+          end
+          if not B.is_detected_as_bin(fname) then
+            B.cmd('e %s', fname)
+            break
+          end
+        end
+      end
+    end
+  end)
 end
 
 return M

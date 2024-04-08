@@ -41,6 +41,8 @@ M.defaults = {
       },
     },
   },
+  ['<c-cr>'] = { function() M.split_other_proj_buffer() end, 'restore hidden stack', mode = { 'n', 'v', }, },
+  ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'open other proj buffer', mode = { 'n', 'v', }, },
 }
 
 function M.setup(options)
