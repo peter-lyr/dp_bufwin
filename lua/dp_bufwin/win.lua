@@ -167,4 +167,35 @@ function M.open_other_proj_buffer()
   M.sel_open()
 end
 
+function M.change_around(dir)
+  local winid1, bufnr1, winid2, bufnr2
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.DoNotCloseFileTypes) then
+    return
+  end
+  winid1 = vim.fn.win_getid()
+  bufnr1 = vim.fn.bufnr()
+  vim.cmd('wincmd ' .. dir)
+  winid2 = vim.fn.win_getid()
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.DoNotCloseFileTypes) then
+    vim.fn.win_gotoid(winid1)
+    return
+  end
+  if winid1 ~= winid2 then
+    bufnr2 = vim.fn.bufnr()
+    vim.cmd('b' .. tostring(bufnr1))
+    vim.fn.win_gotoid(winid1)
+    vim.cmd 'set nowinfixheight'
+    vim.cmd 'set nowinfixwidth'
+    vim.cmd('b' .. tostring(bufnr2))
+    vim.fn.win_gotoid(winid2)
+    vim.cmd 'set nowinfixheight'
+    vim.cmd 'set nowinfixwidth'
+  end
+end
+
+function M.go_last_window()
+  local winid = vim.fn.win_getid(vim.fn.winnr '$')
+  vim.fn.win_gotoid(winid)
+end
+
 return M
