@@ -110,7 +110,7 @@ function M.split_all_other_proj_buffer()
   end
 end
 
-function M.sel_open(split)
+function M.sel_open()
   local roots = {}
   local cur_proj = B.get_proj_root()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -158,7 +158,7 @@ function M.just_split_other_proj_buffer()
   vim.cmd 'tabo'
   M.close_except_fts()
   vim.cmd 'wincmd s'
-  M.sel_open(1)
+  M.sel_open()
 end
 
 function M.open_other_proj_buffer()
