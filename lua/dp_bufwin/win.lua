@@ -94,7 +94,7 @@ function M.close_except_fts()
   end
 end
 
-function M.split_other_proj_buffer()
+function M.split_all_other_proj_buffer()
   vim.cmd 'tabo'
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_buffer) > 1 then
@@ -110,9 +110,7 @@ function M.split_other_proj_buffer()
   end
 end
 
-function M.open_other_proj_buffer()
-  vim.cmd 'tabo'
-  M.close_except_fts()
+function M.sel_open(split)
   local roots = {}
   local cur_proj = B.get_proj_root()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -154,6 +152,19 @@ function M.open_other_proj_buffer()
   if #vim.tbl_keys(roots) <= 20 then
     vim.fn.timer_start(20, function() vim.cmd [[call feedkeys("\<esc>")]] end)
   end
+end
+
+function M.just_split_other_proj_buffer()
+  vim.cmd 'tabo'
+  M.close_except_fts()
+  vim.cmd 'wincmd s'
+  M.sel_open(1)
+end
+
+function M.open_other_proj_buffer()
+  vim.cmd 'tabo'
+  M.close_except_fts()
+  M.sel_open()
 end
 
 return M
