@@ -4,13 +4,6 @@ local sta, B = pcall(require, 'dp_base')
 
 if not sta then return print('Dp_base is required!', debug.getinfo(1)['source']) end
 
-M.DoNotCloseFileTypes = {
-  'NvimTree',
-  'aerial',
-  'qf',
-  'fugitive',
-}
-
 M.proj_buffer = {}
 
 M.max_height_en = nil
@@ -104,7 +97,7 @@ function M.close_except_fts()
   for winnr = vim.fn.winnr '$', 1, -1 do
     if cur_winnr ~= winnr then
       local bufnr = vim.fn.winbufnr(winnr)
-      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), M.DoNotCloseFileTypes) then
+      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), DoNotCloseFileTypes) then
         to_close_winnr[#to_close_winnr + 1] = winnr
       end
     end
@@ -193,14 +186,14 @@ end
 
 function M.change_around(dir)
   local winid1, bufnr1, winid2, bufnr2
-  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.DoNotCloseFileTypes) then
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), DoNotCloseFileTypes) then
     return
   end
   winid1 = vim.fn.win_getid()
   bufnr1 = vim.fn.bufnr()
   vim.cmd('wincmd ' .. dir)
   winid2 = vim.fn.win_getid()
-  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.DoNotCloseFileTypes) then
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), DoNotCloseFileTypes) then
     vim.fn.win_gotoid(winid1)
     return
   end
