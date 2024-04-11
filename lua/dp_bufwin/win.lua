@@ -13,6 +13,8 @@ M.DoNotCloseFileTypes = {
 
 M.proj_buffer = {}
 
+M.max_height_en = nil
+
 function M.win_equal()
   vim.cmd 'wincmd ='
 end
@@ -45,7 +47,23 @@ end
 
 function M.win_go(dir)
   vim.cmd('wincmd ' .. dir)
+    if B.is_in_tbl(dir, { 'j', 'k', }) and M.max_height_en then
+      if not B.is(vim.o.winfixheight) then
+        M.win_max_height()
+      end
+    end
 end
+
+  function M.toggle_max_height()
+    if M.max_height_en then
+      vim.cmd 'wincmd ='
+      M.max_height_en = nil
+    else
+      M.win_max_height()
+      M.max_height_en = 1
+    end
+    B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
+  end
 
 -- [ ] TODO: close 2 or more untitled buffers
 function M.win_close(dir)

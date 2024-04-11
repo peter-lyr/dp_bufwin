@@ -21,6 +21,7 @@ M.defaults = {
   ['<leader>'] = {
     w = {
       name = 'winbuf',
+      [';'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
       e = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
       m = { function() M.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
       h = { function() M.win_go 'h' end, 'win: go left', mode = { 'n', 'v', }, },
