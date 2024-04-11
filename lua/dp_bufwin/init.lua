@@ -47,10 +47,10 @@ M.defaults = {
       b = { '<c-w>L', 'be most window: right', mode = { 'n', 'v', }, },
       ['<leader>'] = {
         name = 'winbuf.more',
-        ['<left>'] = { '<c-w>v<c-w>h', 'split window: up', mode = { 'n', 'v', }, },
-        ['<down>'] = { '<c-w>s', 'split window: down', mode = { 'n', 'v', }, },
-        ['<up>'] = { '<c-w>s<c-w>k', 'split window: left', mode = { 'n', 'v', }, },
-        ['<right>'] = { '<c-w>v', 'split window: right', mode = { 'n', 'v', }, },
+        h = { '<c-w>v<c-w>h', 'split window: up', mode = { 'n', 'v', }, },
+        j = { '<c-w>s', 'split window: down', mode = { 'n', 'v', }, },
+        k = { '<c-w>s<c-w>k', 'split window: left', mode = { 'n', 'v', }, },
+        l = { '<c-w>v', 'split window: right', mode = { 'n', 'v', }, },
       },
     },
     x = {
