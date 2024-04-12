@@ -281,7 +281,7 @@ function M.fontsize_frameless() vim.fn['GuiWindowFrameless'](1 - vim.g.GuiWindow
 
 function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWindowFullScreen) end
 
-M.defaults = {
+require 'which-key'.register {
   ['<leader>'] = {
     w = {
       name = 'winbuf',
@@ -354,9 +354,5 @@ M.defaults = {
   ['<c-ScrollWheelUp>'] = { function() M.fontsize_up() end, 'bufwin font size: up', mode = { 'n', 'v', }, silent = true, },
   ['<c-MiddleMouse>'] = { function() M.fontsize_normal() end, 'bufwin font size: min', mode = { 'n', 'v', }, silent = true, },
 }
-
-function M.setup(options)
-  require 'which-key'.register(vim.tbl_deep_extend('force', {}, M.defaults, options or {}))
-end
 
 return M
