@@ -123,7 +123,7 @@ function M.split_all_other_proj_buffer()
   end
 end
 
-function M.sel_open()
+function M.sel_open(close)
   local roots = {}
   local cur_proj = B.get_proj_root()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -142,9 +142,11 @@ function M.sel_open()
     end
   end
   B.ui_sel(vim.tbl_keys(roots), 'open which proj file', function(root)
+    local temp = close and 1 or 0
     if root then
       if M.proj_buffer[root] and B.is(vim.fn.bufexists(M.proj_buffer[root])) then
         B.cmd('b%s', M.proj_buffer[root])
+        temp = temp + 2
       else
         local len = #vim.tbl_keys(roots)
         for i = 1, len do
@@ -156,10 +158,14 @@ function M.sel_open()
           end
           if not B.is_detected_as_bin(fname) then
             B.cmd('e %s', fname)
+            temp = temp + 2
             break
           end
         end
       end
+    end
+    if temp == 1 then
+      vim.cmd 'close'
     end
   end)
   if #vim.tbl_keys(roots) <= 20 then
@@ -171,7 +177,7 @@ function M.just_split_other_proj_buffer()
   vim.cmd 'tabo'
   M.close_except_fts()
   vim.cmd 'wincmd s'
-  M.sel_open()
+  M.sel_open(1)
 end
 
 function M.open_other_proj_buffer()
