@@ -60,6 +60,13 @@ function M.toggle_max_height()
   B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
 end
 
+function M.temp_map()
+  B.temp_map {
+    { 'w', function() vim.cmd 'exe "norm \\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-e>', },
+    { 's', function() vim.cmd 'exe "norm \\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-y>', },
+  }
+end
+
 -- [ ] TODO: close 2 or more untitled buffers
 function M.win_close(dir)
   local cur_winid = vim.fn.win_getid()
@@ -264,6 +271,7 @@ function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWind
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
+  ['<leader>w\''] = { function() M.temp_map() end, 'win: temp_map', mode = { 'n', 'v', }, },
   ['<leader>we'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
   ['<leader>wh'] = { function() M.win_go 'h' end, 'win: go left', mode = { 'n', 'v', }, },
