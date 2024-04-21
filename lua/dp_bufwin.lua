@@ -62,21 +62,73 @@ end
 
 function M.temp_map_ey()
   B.temp_map {
-    { 'j',      function() vim.cmd 'exe "norm 5\\<c-e>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<c-e>', },
-    { 'k',      function() vim.cmd 'exe "norm 5\\<c-y>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
-    { '<down>', function() vim.cmd 'exe "norm 10\\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<c-e>', },
-    { '<up>',   function() vim.cmd 'exe "norm 10\\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<c-y>', },
-    { 'f',      function() vim.cmd 'exe "norm \\<c-d>"' end,   mode = { 'n', 'v', }, silent = true, desc = '5<c-e>', },
-    { 'e',      function() vim.cmd 'exe "norm \\<c-u>"' end,   mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
+    { 'k', function() vim.cmd 'exe "norm 5\\<c-y>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
+    { 'j', function() vim.cmd 'exe "norm 5\\<c-e>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<c-e>', },
+    { 'y', function() vim.cmd 'exe "norm 10\\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<c-y>', },
+    { 'e', function() vim.cmd 'exe "norm 10\\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<c-e>', },
+    { 'u', function() vim.cmd 'exe "norm \\<c-u>"' end,   mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
+    { 'd', function() vim.cmd 'exe "norm \\<c-d>"' end,   mode = { 'n', 'v', }, silent = true, desc = '5<c-e>', },
   }
 end
 
 function M.temp_map_jk()
   B.temp_map {
-    { 'k',      function() vim.cmd 'exe "norm 5\\<up>"' end,   mode = { 'n', 'v', }, silent = true, desc = '5<up>', },
-    { 'j',      function() vim.cmd 'exe "norm 5\\<down>"' end, mode = { 'n', 'v', }, silent = true, desc = '5<down>', },
-    { '<up>',   function() vim.cmd 'exe "norm 5\\<up>"' end,   mode = { 'n', 'v', }, silent = true, desc = '10<up>', },
-    { '<down>', function() vim.cmd 'exe "norm 5\\<down>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<down>', },
+    { 'k', function() vim.cmd 'exe "norm 5\\<up>"' end,    mode = { 'n', 'v', }, silent = true, desc = '5<up>', },
+    { 'j', function() vim.cmd 'exe "norm 5\\<down>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<down>', },
+    { 'y', function() vim.cmd 'exe "norm 10\\<up>"' end,   mode = { 'n', 'v', }, silent = true, desc = '10<up>', },
+    { 'e', function() vim.cmd 'exe "norm 10\\<down>"' end, mode = { 'n', 'v', }, silent = true, desc = '10<down>', },
+    { 'u', function() vim.cmd 'exe "norm 20\\<up>"' end,   mode = { 'n', 'v', }, silent = true, desc = '20<up>', },
+    { 'd', function() vim.cmd 'exe "norm 20\\<down>"' end, mode = { 'n', 'v', }, silent = true, desc = '20<down>', },
+  }
+end
+
+function M.temp_map_window_size()
+  B.temp_map {
+    { 'h',       function() vim.cmd 'wincmd <' end,   desc = 'bufwin font size: width less 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'l',       function() vim.cmd 'wincmd >' end,   desc = 'bufwin font size: width more 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'j',       function() vim.cmd 'wincmd -' end,   desc = 'bufwin font size: height less 1',  mode = { 'n', 'v', }, silent = true, },
+    { 'k',       function() vim.cmd 'wincmd +' end,   desc = 'bufwin font size: height more 1',  mode = { 'n', 'v', }, silent = true, },
+    { '<left>',  function() vim.cmd '10wincmd <' end, desc = 'bufwin font size: width less 10',  mode = { 'n', 'v', }, silent = true, },
+    { '<right>', function() vim.cmd '10wincmd >' end, desc = 'bufwin font size: width more 10',  mode = { 'n', 'v', }, silent = true, },
+    { '<down>',  function() vim.cmd '10wincmd -' end, desc = 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
+    { '<up>',    function() vim.cmd '10wincmd +' end, desc = 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+function M.temp_map_change_around()
+  B.temp_map {
+    { 'h', function() M.change_around 'h' end, desc = 'exchange with window: left',  mode = { 'n', 'v', }, },
+    { 'j', function() M.change_around 'j' end, desc = 'exchange with window: down',  mode = { 'n', 'v', }, },
+    { 'k', function() M.change_around 'k' end, desc = 'exchange with window: up',    mode = { 'n', 'v', }, },
+    { 'l', function() M.change_around 'l' end, desc = 'exchange with window: right', mode = { 'n', 'v', }, },
+  }
+end
+
+function M.temp_map_be_most()
+  B.temp_map {
+    { 'h', '<c-w>H', desc = 'be most window: up',    mode = { 'n', 'v', }, },
+    { 'j', '<c-w>J', desc = 'be most window: down',  mode = { 'n', 'v', }, },
+    { 'k', '<c-w>K', desc = 'be most window: left',  mode = { 'n', 'v', }, },
+    { 'l', '<c-w>L', desc = 'be most window: right', mode = { 'n', 'v', }, },
+  }
+end
+
+function M.temp_map_go()
+  B.temp_map {
+    { 'h', function() M.win_go 'h' end, desc = 'win: go left',  mode = { 'n', 'v', }, },
+    { 'j', function() M.win_go 'j' end, desc = 'win: go down',  mode = { 'n', 'v', }, },
+    { 'k', function() M.win_go 'k' end, desc = 'win: go up',    mode = { 'n', 'v', }, },
+    { 'l', function() M.win_go 'l' end, desc = 'win: go right', mode = { 'n', 'v', }, },
+  }
+end
+
+function M.temp_map_switch()
+  B.temp_map {
+    { 't', function() vim.cmd 'wincmd t' end,  desc = 'go window: topleft', mode = { 'n', 'v', }, },
+    { 'b', function() vim.cmd 'wincmd b' end,  desc = 'go window: toggle',  mode = { 'n', 'v', }, },
+    { 'p', function() vim.cmd 'wincmd p' end,  desc = 'go window: toggle',  mode = { 'n', 'v', }, },
+    { 'n', function() vim.cmd 'wincmd w' end,  desc = 'go window: next',    mode = { 'n', 'v', }, },
+    { 'm', function() vim.cmd 'wincmd W' end,  desc = 'go window: prev',    mode = { 'n', 'v', }, },
   }
 end
 
@@ -284,36 +336,29 @@ function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWind
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
-  ['<leader>w\''] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
-  ['<leader>w/'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
-  ['<leader>we'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
-  ['<leader>wm'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
-  ['<leader>wh'] = { function() M.win_go 'h' end, 'win: go left', mode = { 'n', 'v', }, },
-  ['<leader>wj'] = { function() M.win_go 'j' end, 'win: go down', mode = { 'n', 'v', }, },
-  ['<leader>wk'] = { function() M.win_go 'k' end, 'win: go up', mode = { 'n', 'v', }, },
-  ['<leader>wl'] = { function() M.win_go 'l' end, 'win: go right', mode = { 'n', 'v', }, },
-  ['<leader>wa'] = { function() M.change_around 'h' end, 'exchange with window: left', mode = { 'n', 'v', }, },
-  ['<leader>ws'] = { function() M.change_around 'j' end, 'exchange with window: down', mode = { 'n', 'v', }, },
-  ['<leader>ww'] = { function() M.change_around 'k' end, 'exchange with window: up', mode = { 'n', 'v', }, },
-  ['<leader>wd'] = { function() M.change_around 'l' end, 'exchange with window: right', mode = { 'n', 'v', }, },
+  ['<leader>we'] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
+  ['<leader>wj'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
+  ['<leader>wd'] = { function() M.temp_map_window_size() end, 'win: temp_map_font_size', mode = { 'n', 'v', }, },
+  ['<leader>wc'] = { function() M.temp_map_change_around() end, 'win: temp_map_change_around', mode = { 'n', 'v', }, },
+  ['<leader>wm'] = { function() M.temp_map_be_most() end, 'win: temp_map_be_most', mode = { 'n', 'v', }, },
+  ['<leader>ww'] = { function() M.temp_map_go() end, 'win: temp_map_go', mode = { 'n', 'v', }, },
+  ['<leader>wp'] = { function() M.temp_map_switch() end, 'win: temp_map_switch', mode = { 'n', 'v', }, },
+  ['<leader>wi'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
+  ['<leader>wo'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
   ['<leader>wz'] = { function() M.go_last_window() end, 'go window: right below', mode = { 'n', 'v', }, },
-  ['<leader>wt'] = { '<c-w>t', 'go window: topleft', mode = { 'n', 'v', }, },
-  ['<leader>wq'] = { '<c-w>p', 'go window: toggle', mode = { 'n', 'v', }, },
-  ['<leader>wn'] = { '<c-w>w', 'go window: next', mode = { 'n', 'v', }, },
-  ['<leader>wg'] = { '<c-w>W', 'go window: prev', mode = { 'n', 'v', }, },
-  ['<leader>wu'] = { ':<c-u>leftabove new<cr>', 'create new window: up', mode = { 'n', 'v', }, },
-  ['<leader>wi'] = { ':<c-u>new<cr>', 'create new window: down', mode = { 'n', 'v', }, },
-  ['<leader>wo'] = { ':<c-u>leftabove vnew<cr>', 'create new window: left', mode = { 'n', 'v', }, },
-  ['<leader>wp'] = { ':<c-u>vnew<cr>', 'create new window: right', mode = { 'n', 'v', }, },
-  ['<leader>wc'] = { '<c-w>H', 'be most window: up', mode = { 'n', 'v', }, },
-  ['<leader>wv'] = { '<c-w>J', 'be most window: down', mode = { 'n', 'v', }, },
-  ['<leader>wf'] = { '<c-w>K', 'be most window: left', mode = { 'n', 'v', }, },
-  ['<leader>wb'] = { '<c-w>L', 'be most window: right', mode = { 'n', 'v', }, },
-  ['<leader>w<leader>'] = { name = 'bufwin.more', },
-  ['<leader>w<leader>h'] = { '<c-w>v<c-w>h', 'split window: up', mode = { 'n', 'v', }, },
-  ['<leader>w<leader>j'] = { '<c-w>s', 'split window: down', mode = { 'n', 'v', }, },
-  ['<leader>w<leader>k'] = { '<c-w>s<c-w>k', 'split window: left', mode = { 'n', 'v', }, },
-  ['<leader>w<leader>l'] = { '<c-w>v', 'split window: right', mode = { 'n', 'v', }, },
+  ['<leader>ws'] = { name = 'bufwin.split', },
+  ['<leader>wsh'] = { '<c-w>v<c-w>h', 'split window: up', mode = { 'n', 'v', }, },
+  ['<leader>wsj'] = { '<c-w>s', 'split window: down', mode = { 'n', 'v', }, },
+  ['<leader>wsk'] = { '<c-w>s<c-w>k', 'split window: left', mode = { 'n', 'v', }, },
+  ['<leader>wsl'] = { '<c-w>v', 'split window: right', mode = { 'n', 'v', }, },
+  ['<leader>wn'] = { name = 'bufwin.new', },
+  ['<leader>wnk'] = { ':<c-u>leftabove new<cr>', 'create new window: up', mode = { 'n', 'v', }, },
+  ['<leader>wnj'] = { ':<c-u>new<cr>', 'create new window: down', mode = { 'n', 'v', }, },
+  ['<leader>wnh'] = { ':<c-u>leftabove vnew<cr>', 'create new window: left', mode = { 'n', 'v', }, },
+  ['<leader>wnl'] = { ':<c-u>vnew<cr>', 'create new window: right', mode = { 'n', 'v', }, },
+}
+
+require 'which-key'.register {
   ['<leader>x'] = { name = 'bufwin.close', },
   ['<leader>xc'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
   ['<leader>xh'] = { function() M.win_close 'h' end, 'win.close: left', mode = { 'n', 'v', }, },
@@ -324,18 +369,9 @@ require 'which-key'.register {
   ['<leader>xoc'] = { function() vim.cmd 'wincmd o' end, 'win.close.other: windows in cur tab ', mode = { 'n', 'v', }, },
   ['<leader>xot'] = { function() vim.cmd 'tabonly' end, 'win.close.other: windows in other tabs ', mode = { 'n', 'v', }, },
   ['<leader>xoa'] = { function() vim.cmd 'tabonly|wincmd o' end, 'win.close.other: all windows ', mode = { 'n', 'v', }, },
-  ['<c-/>'] = { name = 'bufwin proj buffer', },
-  ['<c-/>a'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
-  ['<c-/>j'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
-  ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
-  ['<a-h>'] = { function() vim.cmd 'wincmd <' end, 'bufwin font size: width less 1', mode = { 'n', 'v', }, silent = true, },
-  ['<a-l>'] = { function() vim.cmd 'wincmd >' end, 'bufwin font size: width more 1', mode = { 'n', 'v', }, silent = true, },
-  ['<a-j>'] = { function() vim.cmd 'wincmd -' end, 'bufwin font size: height less 1', mode = { 'n', 'v', }, silent = true, },
-  ['<a-k>'] = { function() vim.cmd 'wincmd +' end, 'bufwin font size: height more 1', mode = { 'n', 'v', }, silent = true, },
-  ['<a-s-h>'] = { function() vim.cmd '10wincmd <' end, 'bufwin font size: width less 10', mode = { 'n', 'v', }, silent = true, },
-  ['<a-s-l>'] = { function() vim.cmd '10wincmd >' end, 'bufwin font size: width more 10', mode = { 'n', 'v', }, silent = true, },
-  ['<a-s-j>'] = { function() vim.cmd '10wincmd -' end, 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
-  ['<a-s-k>'] = { function() vim.cmd '10wincmd +' end, 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
+}
+
+require 'which-key'.register {
   ['<c-0>'] = { name = 'bufwin font size', },
   ['<c-0><c-0>'] = { function() M.fontsize_normal() end, 'bufwin font size:  min', mode = { 'n', 'v', }, silent = true, },
   ['<c-0>_'] = { function() M.fontsize_min() end, 'bufwin font size: min', mode = { 'n', 'v', }, silent = true, },
@@ -346,6 +382,13 @@ require 'which-key'.register {
   ['<c-ScrollWheelDown>'] = { function() M.fontsize_down() end, 'bufwin font size: down', mode = { 'n', 'v', }, silent = true, },
   ['<c-ScrollWheelUp>'] = { function() M.fontsize_up() end, 'bufwin font size: up', mode = { 'n', 'v', }, silent = true, },
   ['<c-MiddleMouse>'] = { function() M.fontsize_normal() end, 'bufwin font size: min', mode = { 'n', 'v', }, silent = true, },
+}
+
+require 'which-key'.register {
+  ['<leader>wb'] = { name = 'bufwin proj buffer', },
+  ['<leader>wbs'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
+  ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
 return M
