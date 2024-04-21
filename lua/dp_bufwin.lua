@@ -60,10 +60,17 @@ function M.toggle_max_height()
   B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
 end
 
-function M.temp_map()
+function M.temp_map_ey()
   B.temp_map {
-    { 'w', function() vim.cmd 'exe "norm 5\\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-e>', },
-    { 's', function() vim.cmd 'exe "norm 5\\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-y>', },
+    { 'k', function() vim.cmd 'exe "norm 5\\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '5<c-e>', },
+    { 'j', function() vim.cmd 'exe "norm 5\\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
+  }
+end
+
+function M.temp_map_jk()
+  B.temp_map {
+    { 'k', function() vim.cmd 'exe "norm 5\\<up>"' end, mode = { 'n', 'v', }, silent = true, desc = '5<up>', },
+    { 'j', function() vim.cmd 'exe "norm 5\\<down>"' end, mode = { 'n', 'v', }, silent = true, desc = '5<down>', },
   }
 end
 
@@ -271,7 +278,8 @@ function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWind
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
-  ['<leader>w\''] = { function() M.temp_map() end, 'win: temp_map', mode = { 'n', 'v', }, },
+  ['<leader>w\''] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
+  ['<leader>w/'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
   ['<leader>we'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
   ['<leader>wh'] = { function() M.win_go 'h' end, 'win: go left', mode = { 'n', 'v', }, },
