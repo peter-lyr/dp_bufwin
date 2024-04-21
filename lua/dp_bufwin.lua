@@ -62,8 +62,8 @@ end
 
 function M.temp_map()
   B.temp_map {
-    { 'w', function() vim.cmd 'exe "norm \\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-e>', },
-    { 's', function() vim.cmd 'exe "norm \\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-y>', },
+    { 'w', function() vim.cmd 'exe "norm 5\\<c-e>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-e>', },
+    { 's', function() vim.cmd 'exe "norm 5\\<c-y>"' end, mode = { 'n', 'v', }, silent = true, desc = '<c-y>', },
   }
 end
 
