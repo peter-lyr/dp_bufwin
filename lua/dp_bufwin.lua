@@ -124,11 +124,12 @@ end
 
 function M.temp_map_switch()
   B.temp_map {
-    { 't', function() vim.cmd 'wincmd t' end,  desc = 'go window: topleft', mode = { 'n', 'v', }, },
-    { 'b', function() vim.cmd 'wincmd b' end,  desc = 'go window: toggle',  mode = { 'n', 'v', }, },
-    { 'p', function() vim.cmd 'wincmd p' end,  desc = 'go window: toggle',  mode = { 'n', 'v', }, },
-    { 'n', function() vim.cmd 'wincmd w' end,  desc = 'go window: next',    mode = { 'n', 'v', }, },
-    { 'm', function() vim.cmd 'wincmd W' end,  desc = 'go window: prev',    mode = { 'n', 'v', }, },
+    { 't', function() vim.cmd 'wincmd t' end, desc = 'go window: topleft',     mode = { 'n', 'v', }, },
+    { 'b', function() M.go_last_window() end, desc = 'go window: right below', mode = { 'n', 'v', }, },
+    { 'g', function() vim.cmd 'wincmd b' end, desc = 'go window: toggle',      mode = { 'n', 'v', }, },
+    { 'p', function() vim.cmd 'wincmd p' end, desc = 'go window: toggle',      mode = { 'n', 'v', }, },
+    { 'n', function() vim.cmd 'wincmd w' end, desc = 'go window: next',        mode = { 'n', 'v', }, },
+    { 'm', function() vim.cmd 'wincmd W' end, desc = 'go window: prev',        mode = { 'n', 'v', }, },
   }
 end
 
@@ -335,17 +336,27 @@ function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWind
 
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
+  ['<leader>ww'] = { name = 'bufwin.temp_map', },
+  ['<leader>wwe'] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
+  ['<leader>wwj'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
+  ['<leader>wws'] = { function() M.temp_map_window_size() end, 'win: temp_map_font_size', mode = { 'n', 'v', }, },
+  ['<leader>wwc'] = { function() M.temp_map_change_around() end, 'win: temp_map_change_around', mode = { 'n', 'v', }, },
+  ['<leader>wwb'] = { function() M.temp_map_be_most() end, 'win: temp_map_be_most', mode = { 'n', 'v', }, },
+  ['<leader>wwi'] = { function() M.temp_map_switch() end, 'win: temp_map_switch', mode = { 'n', 'v', }, },
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
-  ['<leader>we'] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
-  ['<leader>wj'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
-  ['<leader>wd'] = { function() M.temp_map_window_size() end, 'win: temp_map_font_size', mode = { 'n', 'v', }, },
-  ['<leader>wc'] = { function() M.temp_map_change_around() end, 'win: temp_map_change_around', mode = { 'n', 'v', }, },
-  ['<leader>wm'] = { function() M.temp_map_be_most() end, 'win: temp_map_be_most', mode = { 'n', 'v', }, },
-  ['<leader>ww'] = { function() M.temp_map_go() end, 'win: temp_map_go', mode = { 'n', 'v', }, },
-  ['<leader>wp'] = { function() M.temp_map_switch() end, 'win: temp_map_switch', mode = { 'n', 'v', }, },
-  ['<leader>wi'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
-  ['<leader>wo'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
-  ['<leader>wz'] = { function() M.go_last_window() end, 'go window: right below', mode = { 'n', 'v', }, },
+  ['<leader>we'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
+  ['<leader>wm'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
+}
+
+require 'which-key'.register {
+  ['<leader>wwg'] = { function() M.temp_map_go() end, 'win: temp_map_go', mode = { 'n', 'v', }, },
+  ['<leader>wh'] = { function() M.win_go 'h' end, 'win: go left', mode = { 'n', 'v', }, },
+  ['<leader>wj'] = { function() M.win_go 'j' end, 'win: go down', mode = { 'n', 'v', }, },
+  ['<leader>wk'] = { function() M.win_go 'k' end, 'win: go up', mode = { 'n', 'v', }, },
+  ['<leader>wl'] = { function() M.win_go 'l' end, 'win: go right', mode = { 'n', 'v', }, },
+}
+
+require 'which-key'.register {
   ['<leader>ws'] = { name = 'bufwin.split', },
   ['<leader>wsh'] = { '<c-w>v<c-w>h', 'split window: up', mode = { 'n', 'v', }, },
   ['<leader>wsj'] = { '<c-w>s', 'split window: down', mode = { 'n', 'v', }, },
@@ -385,9 +396,9 @@ require 'which-key'.register {
 }
 
 require 'which-key'.register {
-  ['<leader>wb'] = { name = 'bufwin proj buffer', },
-  ['<leader>wbs'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wpb'] = { name = 'bufwin proj buffer', },
+  ['<leader>wpba'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wpbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
   ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
