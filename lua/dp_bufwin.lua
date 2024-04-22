@@ -339,13 +339,13 @@ require 'which-key'.register {
   ['<leader>ww'] = { name = 'bufwin.temp_map', },
   ['<leader>wwe'] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
   ['<leader>wwj'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
-  ['<leader>wws'] = { function() M.temp_map_window_size() end, 'win: temp_map_font_size', mode = { 'n', 'v', }, },
+  ['<leader>wws'] = { function() M.temp_map_window_size() end, 'win: temp_map_window_size', mode = { 'n', 'v', }, },
   ['<leader>wwc'] = { function() M.temp_map_change_around() end, 'win: temp_map_change_around', mode = { 'n', 'v', }, },
   ['<leader>wwb'] = { function() M.temp_map_be_most() end, 'win: temp_map_be_most', mode = { 'n', 'v', }, },
   ['<leader>wwi'] = { function() M.temp_map_switch() end, 'win: temp_map_switch', mode = { 'n', 'v', }, },
-  ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: auto max height toggle', mode = { 'n', 'v', }, },
-  ['<leader>we'] = { function() M.win_equal() end, 'win: equal', mode = { 'n', 'v', }, },
-  ['<leader>wm'] = { function() B.win_max_height() end, 'win: max height', mode = { 'n', 'v', }, },
+  ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: toggle_max_height', mode = { 'n', 'v', }, },
+  ['<leader>we'] = { function() M.win_equal() end, 'win: win_equal', mode = { 'n', 'v', }, },
+  ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
 }
 
 require 'which-key'.register {
