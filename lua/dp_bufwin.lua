@@ -396,9 +396,9 @@ require 'which-key'.register {
 }
 
 require 'which-key'.register {
-  ['<leader>wpb'] = { name = 'bufwin proj buffer', },
-  ['<leader>wpba'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wpbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wb'] = { name = 'bufwin proj buffer', },
+  ['<leader>wba'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
   ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
