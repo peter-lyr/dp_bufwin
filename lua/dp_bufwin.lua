@@ -260,6 +260,10 @@ function M.vsplit_second_proj_buffer()
   M.sel_open(1)
 end
 
+function M.open_proj_buffer()
+  M.sel_open()
+end
+
 function M.split_down_proj_buffer()
   vim.cmd 'wincmd s'
   M.sel_open(1)
@@ -429,6 +433,7 @@ require 'which-key'.register {
   ['<leader>w<leader>a'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>s'] = { function() M.split_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>v'] = { function() M.vsplit_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>o'] = { function() M.open_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>j'] = { function() M.split_down_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>k'] = { function() M.split_up_proj_buffer() end, 'bufwin proj buffer: split up proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>h'] = { function() M.split_left_proj_buffer() end, 'bufwin proj buffer: split left proj buffer', mode = { 'n', 'v', }, },
