@@ -418,13 +418,13 @@ require 'which-key'.register {
 }
 
 require 'which-key'.register {
-  ['<leader>wb'] = { name = 'bufwin proj buffer', },
-  ['<leader>wba'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbs'] = { function() M.split_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbj'] = { function() M.split_down_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbk'] = { function() M.split_up_proj_buffer() end, 'bufwin proj buffer: split up proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbh'] = { function() M.split_left_proj_buffer() end, 'bufwin proj buffer: split left proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbl'] = { function() M.split_right_proj_buffer() end, 'bufwin proj buffer: split right proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>'] = { name = 'bufwin proj buffer', },
+  ['<leader>w<leader>a'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>s'] = { function() M.split_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>j'] = { function() M.split_down_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>k'] = { function() M.split_up_proj_buffer() end, 'bufwin proj buffer: split up proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>h'] = { function() M.split_left_proj_buffer() end, 'bufwin proj buffer: split left proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>l'] = { function() M.split_right_proj_buffer() end, 'bufwin proj buffer: split right proj buffer', mode = { 'n', 'v', }, },
   ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
