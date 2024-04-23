@@ -196,6 +196,28 @@ function M.split_all_other_proj_buffer()
   end
 end
 
+function M.split_down_proj_buffer()
+  vim.cmd 'wincmd s'
+  M.sel_open(1)
+end
+
+function M.split_up_proj_buffer()
+  vim.cmd 'wincmd s'
+  vim.cmd 'wincmd k'
+  M.sel_open(1)
+end
+
+function M.split_right_proj_buffer()
+  vim.cmd 'wincmd v'
+  M.sel_open(1)
+end
+
+function M.split_left_proj_buffer()
+  vim.cmd 'wincmd v'
+  vim.cmd 'wincmd h'
+  M.sel_open(1)
+end
+
 function M.sel_open(close)
   local roots = {}
   local cur_proj = B.get_proj_root()
@@ -246,7 +268,7 @@ function M.sel_open(close)
   end
 end
 
-function M.just_split_other_proj_buffer()
+function M.split_second_proj_buffer()
   vim.cmd 'tabo'
   M.close_except_fts()
   vim.cmd 'wincmd s'
@@ -398,7 +420,11 @@ require 'which-key'.register {
 require 'which-key'.register {
   ['<leader>wb'] = { name = 'bufwin proj buffer', },
   ['<leader>wba'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
-  ['<leader>wbj'] = { function() M.just_split_other_proj_buffer() end, 'bufwin proj buffer: just split other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbs'] = { function() M.split_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbj'] = { function() M.split_down_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbk'] = { function() M.split_up_proj_buffer() end, 'bufwin proj buffer: split up proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbh'] = { function() M.split_left_proj_buffer() end, 'bufwin proj buffer: split left proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>wbl'] = { function() M.split_right_proj_buffer() end, 'bufwin proj buffer: split right proj buffer', mode = { 'n', 'v', }, },
   ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
