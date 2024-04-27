@@ -180,13 +180,13 @@ function M.close_except_fts()
   end
 end
 
-function M.split_all_other_proj_buffer()
+function M.split_all_other_proj_buffer(include_unlisted)
   vim.cmd 'tabo'
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_buffer) > 1 then
     local temp = B.get_proj_root()
     for _, proj in ipairs(vim.tbl_keys(M.proj_buffer)) do
-      if proj ~= temp and vim.fn.buflisted(M.proj_buffer[proj]) == 1 then
+      if proj ~= temp and (include_unlisted or vim.fn.buflisted(M.proj_buffer[proj])) == 1 then
         vim.cmd 'wincmd ='
         vim.cmd 'wincmd s'
         vim.cmd('b' .. M.proj_buffer[proj])
@@ -431,6 +431,7 @@ require 'which-key'.register {
 require 'which-key'.register {
   ['<leader>w<leader>'] = { name = 'bufwin proj buffer', },
   ['<leader>w<leader>a'] = { function() M.split_all_other_proj_buffer() end, 'bufwin proj buffer: split all other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader>u'] = { function() M.split_all_other_proj_buffer(1) end, 'bufwin proj buffer: split all other proj buffer include unlisted', mode = { 'n', 'v', }, },
   ['<leader>w<leader>s'] = { function() M.split_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>v'] = { function() M.vsplit_second_proj_buffer() end, 'bufwin proj buffer: split second proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>o'] = { function() M.open_proj_buffer() end, 'bufwin proj buffer: split down proj buffer', mode = { 'n', 'v', }, },
