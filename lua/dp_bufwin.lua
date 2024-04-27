@@ -154,9 +154,9 @@ function M.win_close(dir)
 end
 
 function M.bdelete_cur_proj()
-  local curroot = B.rep(B.get_proj_root())
+  local curroot = B.get_proj_root()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if curroot == B.rep(B.get_proj_root(B.buf_get_name(bufnr))) then
+    if curroot == B.get_proj_root(B.buf_get_name(bufnr)) then
       pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
     end
   end
@@ -199,7 +199,7 @@ function M.split_all_other_proj_buffer(include_unlisted)
     local fname = B.rep(B.buf_get_name(bufnr))
     if B.is(fname) and B.is_file(fname) then
       local root = B.get_proj_root(fname)
-      if cur_proj ~= root then
+      if cur_proj ~= root and (include_unlisted or (M.proj_buffer[root] and vim.fn.buflisted(M.proj_buffer[root]))) then
         roots[root] = {}
       end
       root = vim.fn.trim(root)
