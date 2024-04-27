@@ -153,6 +153,16 @@ function M.win_close(dir)
   end
 end
 
+function M.bdelete_cur_proj()
+  local curroot = B.rep(B.get_proj_root())
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if curroot == B.rep(B.get_proj_root(B.buf_get_name(bufnr))) then
+      pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
+    end
+  end
+  M.win_close()
+end
+
 B.aucmd({ 'BufEnter', }, 'my.bufwin.BufEnter', {
   callback = function(ev)
     local root = B.get_proj_root(B.buf_get_name(ev.buf))
@@ -441,6 +451,7 @@ require 'which-key'.register {
   ['<leader>xj'] = { function() M.win_close 'j' end, 'win.close: close down', mode = { 'n', 'v', }, },
   ['<leader>xk'] = { function() M.win_close 'k' end, 'win.close : up', mode = { 'n', 'v', }, },
   ['<leader>xl'] = { function() M.win_close 'l' end, 'win.close : right', mode = { 'n', 'v', }, },
+  ['<leader>xp'] = { function() M.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
   ['<leader>xo'] = { name = 'bufwin.close.other', },
   ['<leader>xoc'] = { function() vim.cmd 'wincmd o' end, 'win.close.other: windows in cur tab ', mode = { 'n', 'v', }, },
   ['<leader>xot'] = { function() vim.cmd 'tabonly' end, 'win.close.other: windows in other tabs ', mode = { 'n', 'v', }, },
