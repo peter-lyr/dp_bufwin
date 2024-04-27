@@ -183,13 +183,45 @@ end
 function M.split_all_other_proj_buffer(include_unlisted)
   vim.cmd 'tabo'
   M.close_except_fts()
-  if #vim.tbl_keys(M.proj_buffer) > 1 then
-    local temp = B.get_proj_root()
-    for _, proj in ipairs(vim.tbl_keys(M.proj_buffer)) do
-      if proj ~= temp and (include_unlisted or vim.fn.buflisted(M.proj_buffer[proj])) == 1 then
-        vim.cmd 'wincmd ='
+  local roots = {}
+  local cur_proj = B.get_proj_root()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local fname = B.rep(B.buf_get_name(bufnr))
+    if B.is(fname) and B.is_file(fname) then
+      local root = B.get_proj_root(fname)
+      if cur_proj ~= root then
+        roots[root] = {}
+      end
+      root = vim.fn.trim(root)
+      if #root == 0 then
+        B.stack_item_uniq(roots[root], fname)
+      else
+        B.stack_item_uniq(roots[root], string.sub(fname, #root + 2, #fname))
+      end
+    end
+  end
+  if #vim.tbl_keys(roots) > 1 then
+    for root, _ in pairs(roots) do
+      if M.proj_buffer[root] and B.is(vim.fn.bufexists(M.proj_buffer[root])) then
+        vim.cmd 'wincmd _'
         vim.cmd 'wincmd s'
-        vim.cmd('b' .. M.proj_buffer[proj])
+        B.cmd('b%s', M.proj_buffer[root])
+      else
+        local len = #roots[root]
+        for i = len, 1, -1 do
+          local fname = ''
+          if #root > 0 then
+            fname = B.get_file(root, roots[root][i])
+          else
+            fname = roots[root][i]
+          end
+          if not B.is_detected_as_bin(fname) then
+            vim.cmd 'wincmd _'
+            vim.cmd 'wincmd s'
+            B.cmd('e %s', fname)
+            break
+          end
+        end
       end
     end
     vim.cmd 'wincmd ='
