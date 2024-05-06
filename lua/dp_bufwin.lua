@@ -445,20 +445,6 @@ require 'which-key'.register {
 }
 
 require 'which-key'.register {
-  ['<leader>x'] = { name = 'bufwin.close', },
-  ['<leader>xc'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
-  ['<leader>xh'] = { function() M.win_close 'h' end, 'win.close: left', mode = { 'n', 'v', }, },
-  ['<leader>xj'] = { function() M.win_close 'j' end, 'win.close: close down', mode = { 'n', 'v', }, },
-  ['<leader>xk'] = { function() M.win_close 'k' end, 'win.close : up', mode = { 'n', 'v', }, },
-  ['<leader>xl'] = { function() M.win_close 'l' end, 'win.close : right', mode = { 'n', 'v', }, },
-  ['<leader>xp'] = { function() M.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
-  ['<leader>xo'] = { name = 'bufwin.close.other', },
-  ['<leader>xoc'] = { function() vim.cmd 'wincmd o' end, 'win.close.other: windows in cur tab ', mode = { 'n', 'v', }, },
-  ['<leader>xot'] = { function() vim.cmd 'tabonly' end, 'win.close.other: windows in other tabs ', mode = { 'n', 'v', }, },
-  ['<leader>xoa'] = { function() vim.cmd 'tabonly|wincmd o' end, 'win.close.other: all windows ', mode = { 'n', 'v', }, },
-}
-
-require 'which-key'.register {
   ['<c-0>'] = { name = 'bufwin font size', },
   ['<c-0><c-0>'] = { function() M.fontsize_normal() end, 'bufwin font size:  min', mode = { 'n', 'v', }, silent = true, },
   ['<c-0>_'] = { function() M.fontsize_min() end, 'bufwin font size: min', mode = { 'n', 'v', }, silent = true, },
@@ -484,5 +470,21 @@ require 'which-key'.register {
   ['<leader>w<leader>l'] = { function() M.split_right_proj_buffer() end, 'bufwin proj buffer: split right proj buffer', mode = { 'n', 'v', }, },
   ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
+
+function M._map_leader_x()
+  require 'which-key'.register {
+    ['<leader>x'] = { name = 'bufwin.close', },
+    ['<leader>xc'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
+    ['<leader>xh'] = { function() M.win_close 'h' end, 'win.close: left', mode = { 'n', 'v', }, },
+    ['<leader>xj'] = { function() M.win_close 'j' end, 'win.close: close down', mode = { 'n', 'v', }, },
+    ['<leader>xk'] = { function() M.win_close 'k' end, 'win.close : up', mode = { 'n', 'v', }, },
+    ['<leader>xl'] = { function() M.win_close 'l' end, 'win.close : right', mode = { 'n', 'v', }, },
+    ['<leader>xp'] = { function() M.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
+    ['<leader>xo'] = { name = 'bufwin.close.other', },
+    ['<leader>xoc'] = { function() vim.cmd 'wincmd o' end, 'win.close.other: windows in cur tab ', mode = { 'n', 'v', }, },
+    ['<leader>xot'] = { function() vim.cmd 'tabonly' end, 'win.close.other: windows in other tabs ', mode = { 'n', 'v', }, },
+    ['<leader>xoa'] = { function() vim.cmd 'tabonly|wincmd o' end, 'win.close.other: all windows ', mode = { 'n', 'v', }, },
+  }
+end
 
 return M
