@@ -9,6 +9,7 @@ M.lua = B.getlua(M.source)
 
 if B.check_plugins {
       'git@github.com:peter-lyr/dp_init',
+      'git@github.com:peter-lyr/dp_tabline',
       'folke/which-key.nvim',
     } then
   return
@@ -416,6 +417,48 @@ function M.fontsize_frameless() vim.fn['GuiWindowFrameless'](1 - vim.g.GuiWindow
 
 function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWindowFullScreen) end
 
+function M.Bdelete_cur()
+  vim.cmd [[
+    try
+      Bdelete!
+      e!
+    catch
+    endtry
+  ]]
+  require 'dp_tabline'.update()
+end
+
+function M.Bwipeout_cur()
+  vim.cmd [[
+    try
+      Bwipeout!
+    catch
+    endtry
+  ]]
+  require 'dp_tabline'.update()
+end
+
+function M.bdelete_cur()
+  vim.cmd [[
+    try
+      bdelete!
+      e!
+    catch
+    endtry
+  ]]
+  require 'dp_tabline'.update()
+end
+
+function M.bwipeout_cur()
+  vim.cmd [[
+    try
+      bwipeout!
+    catch
+    endtry
+  ]]
+  require 'dp_tabline'.update()
+end
+
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>ww'] = { name = 'bufwin.temp_map', },
@@ -482,6 +525,11 @@ function M._map_leader_x()
   require 'which-key'.register {
     ['<leader>x'] = { name = 'bufwin.close', },
     ['<leader>xc'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
+    ['<leader>xd'] = { function() M.Bdelete_cur() end, 'win.close: Bdelete', mode = { 'n', 'v', }, },
+    ['<leader>xw'] = { function() M.Bwipeout_cur() end, 'win.close: Bwipeout', mode = { 'n', 'v', }, },
+    ['<leader>x<leader>'] = { name = 'bufwin.close.more', },
+    ['<leader>x<leader>d'] = { function() M.bdelete_cur() end, 'win.close: bdelete', mode = { 'n', 'v', }, },
+    ['<leader>x<leader>w'] = { function() M.bwipeout_cur() end, 'win.close: bwipeout', mode = { 'n', 'v', }, },
     ['<leader>xh'] = { function() M.win_close 'h' end, 'win.close: left', mode = { 'n', 'v', }, },
     ['<leader>xj'] = { function() M.win_close 'j' end, 'win.close: close down', mode = { 'n', 'v', }, },
     ['<leader>xk'] = { function() M.win_close 'k' end, 'win.close : up', mode = { 'n', 'v', }, },
