@@ -291,7 +291,7 @@ function M.sel_open(close)
       vim.cmd 'close'
     end
   end)
-  if #vim.tbl_keys(roots) <= 20 then
+  if #vim.tbl_keys(roots) <= 7 then
     vim.fn.timer_start(20, function() vim.cmd [[call feedkeys("\<esc>")]] end)
   end
 end
