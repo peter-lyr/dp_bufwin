@@ -471,6 +471,7 @@ require 'which-key'.register {
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: toggle_max_height', mode = { 'n', 'v', }, },
   ['<leader>we'] = { function() M.win_equal() end, 'win: win_equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
+  ['<leader>w,'] = { function() B.win_max_width() end, 'win: win_max_width', mode = { 'n', 'v', }, },
 }
 
 require 'which-key'.register {
