@@ -459,6 +459,14 @@ function M.bwipeout_cur()
   require 'dp_tabline'.update()
 end
 
+function M.win_fix(which)
+  B.cmd('set winfix%s', which)
+end
+
+function M.win_no_fix(which)
+  B.cmd('set nowinfix%s', which)
+end
+
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>ww'] = { name = 'bufwin.temp_map', },
@@ -472,6 +480,14 @@ require 'which-key'.register {
   ['<leader>we'] = { function() M.win_equal() end, 'win: win_equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
   ['<leader>w,'] = { function() B.win_max_width() end, 'win: win_max_width', mode = { 'n', 'v', }, },
+}
+
+require 'which-key'.register {
+  ['<leader>wfh'] = { function() M.win_fix 'height' end, 'win: fix height', mode = { 'n', 'v', }, },
+  ['<leader>wfw'] = { function() M.win_fix 'width' end, 'win: fix width', mode = { 'n', 'v', }, },
+  ['<leader>wf<leader>'] = { name = 'win: no fix', },
+  ['<leader>wf<leader>h'] = { function() M.win_no_fix 'height' end, 'win: no fix height', mode = { 'n', 'v', }, },
+  ['<leader>wf<leader>w'] = { function() M.win_no_fix 'width' end, 'win: no fix width', mode = { 'n', 'v', }, },
 }
 
 require 'which-key'.register {
