@@ -480,6 +480,7 @@ require 'which-key'.register {
   ['<leader>we'] = { function() M.win_equal() end, 'win: win_equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
   ['<leader>w,'] = { function() B.win_max_width() end, 'win: win_max_width', mode = { 'n', 'v', }, },
+  ['<leader>w<cr>'] = { function() B.win_max_width_height() end, 'win: win_max_width', mode = { 'n', 'v', }, },
 }
 
 require 'which-key'.register {
