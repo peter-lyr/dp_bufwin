@@ -68,6 +68,24 @@ function M.toggle_max_height()
   B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
 end
 
+function M.opacity(dir)
+  if not M.opacity_val then
+    M.opacity_val = 1
+  end
+  if dir == 'inc' then
+    M.opacity_val = M.opacity_val + 0.1
+    if M.opacity_val >= 1 then
+      M.opacity_val = 1
+    end
+  else
+    M.opacity_val = M.opacity_val - 0.1
+    if M.opacity_val <= 0.1 then
+      M.opacity_val = 0.1
+    end
+  end
+  B.cmd('GuiWindowOpacity %f', M.opacity_val)
+end
+
 function M.temp_map_ey()
   B.temp_map {
     { 'k', function() vim.cmd 'exe "norm 5\\<c-y>"' end,  mode = { 'n', 'v', }, silent = true, desc = '5<c-y>', },
@@ -128,6 +146,13 @@ function M.temp_map_go()
     { 'j', function() M.win_go 'j' end, desc = 'win: go down',  mode = { 'n', 'v', }, },
     { 'k', function() M.win_go 'k' end, desc = 'win: go up',    mode = { 'n', 'v', }, },
     { 'l', function() M.win_go 'l' end, desc = 'win: go right', mode = { 'n', 'v', }, },
+  }
+end
+
+function M.temp_map_opacity()
+  B.temp_map {
+    { 'j', function() M.opacity 'dec' end, desc = 'win: opacity inc',  mode = { 'n', 'v', }, },
+    { 'k', function() M.opacity 'inc' end, desc = 'win: opacity inc',  mode = { 'n', 'v', }, },
   }
 end
 
@@ -478,6 +503,7 @@ require 'which-key'.register {
   ['<leader>wwc'] = { function() M.temp_map_change_around() end, 'win: temp_map_change_around', mode = { 'n', 'v', }, },
   ['<leader>wwb'] = { function() M.temp_map_be_most() end, 'win: temp_map_be_most', mode = { 'n', 'v', }, },
   ['<leader>wwi'] = { function() M.temp_map_switch() end, 'win: temp_map_switch', mode = { 'n', 'v', }, },
+  ['<leader>wwo'] = { function() M.temp_map_opacity() end, 'win: temp_map_opacity', mode = { 'n', 'v', }, },
   ['<leader>w;'] = { function() M.toggle_max_height() end, 'win: toggle_max_height', mode = { 'n', 'v', }, },
   ['<leader>we'] = { function() M.win_equal() end, 'win: win_equal', mode = { 'n', 'v', }, },
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
