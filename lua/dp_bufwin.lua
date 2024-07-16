@@ -91,16 +91,17 @@ function M.temp_map_jk()
 end
 
 function M.temp_map_window_size()
-  B.temp_map {
-    { 'h',       function() vim.cmd 'wincmd <' end,   desc = 'bufwin font size: width less 1',   mode = { 'n', 'v', }, silent = true, },
-    { 'l',       function() vim.cmd 'wincmd >' end,   desc = 'bufwin font size: width more 1',   mode = { 'n', 'v', }, silent = true, },
-    { 'j',       function() vim.cmd 'wincmd -' end,   desc = 'bufwin font size: height less 1',  mode = { 'n', 'v', }, silent = true, },
-    { 'k',       function() vim.cmd 'wincmd +' end,   desc = 'bufwin font size: height more 1',  mode = { 'n', 'v', }, silent = true, },
-    { '<left>',  function() vim.cmd '10wincmd <' end, desc = 'bufwin font size: width less 10',  mode = { 'n', 'v', }, silent = true, },
-    { '<right>', function() vim.cmd '10wincmd >' end, desc = 'bufwin font size: width more 10',  mode = { 'n', 'v', }, silent = true, },
-    { '<down>',  function() vim.cmd '10wincmd -' end, desc = 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
-    { '<up>',    function() vim.cmd '10wincmd +' end, desc = 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
+  local temp = B.temp_map {
+    { 'h',     function() vim.cmd 'wincmd <' end,   desc = 'bufwin font size: width less 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'l',     function() vim.cmd 'wincmd >' end,   desc = 'bufwin font size: width more 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'j',     function() vim.cmd 'wincmd -' end,   desc = 'bufwin font size: height less 1',  mode = { 'n', 'v', }, silent = true, },
+    { 'k',     function() vim.cmd 'wincmd +' end,   desc = 'bufwin font size: height more 1',  mode = { 'n', 'v', }, silent = true, },
+    { '<c-h>', function() vim.cmd '10wincmd <' end, desc = 'bufwin font size: width less 10',  mode = { 'n', 'v', }, silent = true, },
+    { '<c-l>', function() vim.cmd '10wincmd >' end, desc = 'bufwin font size: width more 10',  mode = { 'n', 'v', }, silent = true, },
+    { '<c-j>', function() vim.cmd '10wincmd -' end, desc = 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
+    { '<c-k>', function() vim.cmd '10wincmd +' end, desc = 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
   }
+  B.notify_info(temp, 1000 * 60 * 60)
 end
 
 function M.temp_map_change_around()
@@ -131,7 +132,7 @@ function M.temp_map_go()
 end
 
 function M.temp_map_switch()
-  B.temp_map {
+  local temp = B.temp_map {
     { 't', function() vim.cmd 'wincmd t' end, desc = 'go window: topleft',     mode = { 'n', 'v', }, },
     { 'b', function() M.go_last_window() end, desc = 'go window: right below', mode = { 'n', 'v', }, },
     { 'g', function() vim.cmd 'wincmd b' end, desc = 'go window: toggle',      mode = { 'n', 'v', }, },
@@ -139,6 +140,7 @@ function M.temp_map_switch()
     { 'n', function() vim.cmd 'wincmd w' end, desc = 'go window: next',        mode = { 'n', 'v', }, },
     { 'm', function() vim.cmd 'wincmd W' end, desc = 'go window: prev',        mode = { 'n', 'v', }, },
   }
+  B.notify_info(temp, 1000 * 60 * 60)
 end
 
 -- [ ] TODO: close 2 or more untitled buffers
