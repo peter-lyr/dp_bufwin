@@ -573,6 +573,7 @@ function M._map_leader_x()
     ['<leader>xc'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
     ['<leader>xd'] = { function() M.Bdelete_cur() end, 'win.close: Bdelete', mode = { 'n', 'v', }, },
     ['<leader>xw'] = { function() M.Bwipeout_cur() end, 'win.close: Bwipeout', mode = { 'n', 'v', }, },
+    ['<leader>xt'] = { ':<c-u>tabclose<cr>', 'win.close: tab', mode = { 'n', 'v', }, },
     ['<leader>x<leader>'] = { name = 'bufwin.close.more', },
     ['<leader>x<leader>d'] = { function() M.bdelete_cur() end, 'win.close: bdelete', mode = { 'n', 'v', }, },
     ['<leader>x<leader>w'] = { function() M.bwipeout_cur() end, 'win.close: bwipeout', mode = { 'n', 'v', }, },
