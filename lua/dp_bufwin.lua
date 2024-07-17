@@ -110,14 +110,14 @@ end
 
 function M.temp_map_window_size()
   local temp = B.temp_map {
-    { 'h',     function() vim.cmd 'wincmd <' end,   desc = 'bufwin font size: width less 1',   mode = { 'n', 'v', }, silent = true, },
-    { 'l',     function() vim.cmd 'wincmd >' end,   desc = 'bufwin font size: width more 1',   mode = { 'n', 'v', }, silent = true, },
-    { 'j',     function() vim.cmd 'wincmd -' end,   desc = 'bufwin font size: height less 1',  mode = { 'n', 'v', }, silent = true, },
-    { 'k',     function() vim.cmd 'wincmd +' end,   desc = 'bufwin font size: height more 1',  mode = { 'n', 'v', }, silent = true, },
-    { '<c-h>', function() vim.cmd '10wincmd <' end, desc = 'bufwin font size: width less 10',  mode = { 'n', 'v', }, silent = true, },
-    { '<c-l>', function() vim.cmd '10wincmd >' end, desc = 'bufwin font size: width more 10',  mode = { 'n', 'v', }, silent = true, },
-    { '<c-j>', function() vim.cmd '10wincmd -' end, desc = 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
-    { '<c-k>', function() vim.cmd '10wincmd +' end, desc = 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
+    { 'h', function() vim.cmd 'wincmd <' end,   desc = 'bufwin font size: width less 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'l', function() vim.cmd 'wincmd >' end,   desc = 'bufwin font size: width more 1',   mode = { 'n', 'v', }, silent = true, },
+    { 'j', function() vim.cmd 'wincmd -' end,   desc = 'bufwin font size: height less 1',  mode = { 'n', 'v', }, silent = true, },
+    { 'k', function() vim.cmd 'wincmd +' end,   desc = 'bufwin font size: height more 1',  mode = { 'n', 'v', }, silent = true, },
+    { 'n', function() vim.cmd '10wincmd <' end, desc = 'bufwin font size: width less 10',  mode = { 'n', 'v', }, silent = true, },
+    { 'm', function() vim.cmd '10wincmd >' end, desc = 'bufwin font size: width more 10',  mode = { 'n', 'v', }, silent = true, },
+    { 's', function() vim.cmd '10wincmd -' end, desc = 'bufwin font size: height less 10', mode = { 'n', 'v', }, silent = true, },
+    { 'e', function() vim.cmd '10wincmd +' end, desc = 'bufwin font size: height more 10', mode = { 'n', 'v', }, silent = true, },
   }
   B.notify_info(temp, 1000 * 60 * 60)
 end
@@ -151,8 +151,8 @@ end
 
 function M.temp_map_opacity()
   B.temp_map {
-    { 'j', function() M.opacity 'dec' end, desc = 'win: opacity inc',  mode = { 'n', 'v', }, },
-    { 'k', function() M.opacity 'inc' end, desc = 'win: opacity inc',  mode = { 'n', 'v', }, },
+    { 'j', function() M.opacity 'dec' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
+    { 'k', function() M.opacity 'inc' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
   }
 end
 
