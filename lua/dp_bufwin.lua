@@ -72,12 +72,22 @@ function M.opacity(dir)
   if not M.opacity_val then
     M.opacity_val = 1
   end
-  if dir == 'inc' then
+  if dir == 'inc-1' then
+    M.opacity_val = M.opacity_val + 0.01
+    if M.opacity_val >= 1 then
+      M.opacity_val = 1
+    end
+  elseif dir == 'dec-1' then
+    M.opacity_val = M.opacity_val - 0.01
+    if M.opacity_val <= 0.1 then
+      M.opacity_val = 0.1
+    end
+  elseif dir == 'inc-10' then
     M.opacity_val = M.opacity_val + 0.1
     if M.opacity_val >= 1 then
       M.opacity_val = 1
     end
-  else
+  elseif dir == 'dec-10' then
     M.opacity_val = M.opacity_val - 0.1
     if M.opacity_val <= 0.1 then
       M.opacity_val = 0.1
@@ -151,8 +161,10 @@ end
 
 function M.temp_map_opacity()
   B.temp_map {
-    { 'j', function() M.opacity 'dec' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
-    { 'k', function() M.opacity 'inc' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
+    { 'j', function() M.opacity 'dec-1' end,  desc = 'win: opacity inc', mode = { 'n', 'v', }, },
+    { 'k', function() M.opacity 'inc-1' end,  desc = 'win: opacity inc', mode = { 'n', 'v', }, },
+    { 'h', function() M.opacity 'dec-10' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
+    { 'l', function() M.opacity 'inc-10' end, desc = 'win: opacity inc', mode = { 'n', 'v', }, },
   }
 end
 
