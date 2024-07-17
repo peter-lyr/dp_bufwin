@@ -564,7 +564,7 @@ require 'which-key'.register {
   ['<leader>w<leader>k'] = { function() M.split_up_proj_buffer() end, 'bufwin proj buffer: split up proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>h'] = { function() M.split_left_proj_buffer() end, 'bufwin proj buffer: split left proj buffer', mode = { 'n', 'v', }, },
   ['<leader>w<leader>l'] = { function() M.split_right_proj_buffer() end, 'bufwin proj buffer: split right proj buffer', mode = { 'n', 'v', }, },
-  ['<c-space>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
+  ['<leader>w<leader><leader>'] = { function() M.open_other_proj_buffer() end, 'bufwin proj buffer: open other proj buffer', mode = { 'n', 'v', }, },
 }
 
 function M._map_leader_x()
