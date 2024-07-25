@@ -521,6 +521,7 @@ require 'which-key'.register {
   ['<leader>wm'] = { function() B.win_max_height() end, 'win: win_max_height', mode = { 'n', 'v', }, },
   ['<leader>w,'] = { function() B.win_max_width() end, 'win: win_max_width', mode = { 'n', 'v', }, },
   ['<leader>w<cr>'] = { function() B.win_max_width_height() end, 'win: win_max_width', mode = { 'n', 'v', }, },
+  ['<leader>wp'] = { function() vim.cmd 'wincmd p' end, 'win: wincmd p', mode = { 'n', 'v', }, },
 }
 
 require 'which-key'.register {
