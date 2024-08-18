@@ -509,6 +509,7 @@ end
 require 'which-key'.register {
   ['<leader>w'] = { name = 'bufwin', },
   ['<leader>ww'] = { name = 'bufwin.temp_map', },
+  ['<leader>wd'] = { function() M.win_close() end, 'win.close:  cur', mode = { 'n', 'v', }, },
   ['<leader>wwe'] = { function() M.temp_map_ey() end, 'win: temp_map_ey', mode = { 'n', 'v', }, },
   ['<leader>wwj'] = { function() M.temp_map_jk() end, 'win: temp_map_jk', mode = { 'n', 'v', }, },
   ['<leader>wws'] = { function() M.temp_map_window_size() end, 'win: temp_map_window_size', mode = { 'n', 'v', }, },
